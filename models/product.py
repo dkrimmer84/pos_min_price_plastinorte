@@ -19,3 +19,8 @@ class ProductProduct(models.Model):
         related='product_tmpl_id.min_price',
         store=True
     )
+
+class PosConfig(models.Model):
+    _inherit = 'pos.config'
+
+    check_margin = fields.Boolean(string='Check Margin', default=False)
