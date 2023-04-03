@@ -1,4 +1,4 @@
-odoo.define('pos_min_price_plastinorte_v1.pos_min_price', function (require) {
+odoo.define('pos_min_price_plastinorte.pos_min_price', function (require) {
     'use strict';
 
     var models = require('point_of_sale.models');
