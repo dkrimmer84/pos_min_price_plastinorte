@@ -41,5 +41,4 @@ odoo.define('pos_min_price_plastinorte.pos_min_price', function (require) {
             this._super(force_validation);
         },
     });
-
 });
