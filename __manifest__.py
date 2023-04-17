@@ -8,10 +8,11 @@
     'website': 'https://www.dkrimmer.de',
     'license': 'AGPL-3',
     'summary': 'Prevent selling products below the minimum margin',
-    'depends': ['sale', 'point_of_sale'],
+    'depends': ['sale', 'point_of_sale', 'crm'],
     'data': [
         'views/pos_min_price_plastinorte_views.xml',
         'views/assets.xml',
+        'views/crm_team_view.xml',
     ],
     'installable': True,
     'auto_install': False,
