@@ -15,12 +15,13 @@ class SaleOrder(models.Model):
 
                 if min_price and (line.price_unit < line.product_id.standard_price * (1 + min_price / 100) * tax_factor):
                     min_price_value = line.product_id.standard_price * (1 + min_price / 100) * tax_factor
-                    raise exceptions.UserError(
-                        "El precio $%s para %s está por debajo del mínimo permitido. "
-                        "El Precio mínimo es $%s. Por favor, corrija el precio antes de continuar." % (
-                            round(line.price_unit, 2),
-                            line.product_id.name,
-                            round(min_price_value, 2)
+                    if not self.env.user.has_group('sales_team.group_sale_salesman_all_leads'):
+                        raise exceptions.UserError(
+                            "El precio $%s para %s está por debajo del mínimo permitido. "
+                            "El Precio mínimo es $%s. Por favor, corrija el precio antes de continuar." % (
+                                round(line.price_unit, 2),
+                                line.product_id.name,
+                                round(min_price_value, 2)
+                            )
                         )
-                    )
         return super(SaleOrder, self).action_confirm()
