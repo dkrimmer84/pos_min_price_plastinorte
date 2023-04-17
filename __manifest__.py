@@ -1,3 +1,5 @@
+# Copyright Dominic Krimmer <https://www.dkrimmer.de>
+# License MIT (https://opensource.org/licenses/MIT).
 {
     'name': 'POS Minimum Price Plastinorte',
     'version': '12.0.1.0.0',
@@ -6,7 +8,7 @@
     'website': 'https://www.dkrimmer.de',
     'license': 'AGPL-3',
     'summary': 'Prevent selling products below the minimum margin',
-    'depends': ['point_of_sale'],
+    'depends': ['sale', 'point_of_sale'],
     'data': [
         'views/pos_min_price_plastinorte_views.xml',
         'views/assets.xml',

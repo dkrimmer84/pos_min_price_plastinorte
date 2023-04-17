@@ -1,3 +1,5 @@
+/*  Copyright Dominic Krimmer <https://www.dkrimmer.de>
+    License MIT (https://opensource.org/licenses/MIT). */
 odoo.define('pos_min_price_plastinorte.pos_min_price', function (require) {
     'use strict';
 
