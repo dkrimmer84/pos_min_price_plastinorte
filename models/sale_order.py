@@ -10,12 +10,13 @@ class SaleOrder(models.Model):
         if self.team_id.margin_check:
             for line in self.order_line:
                 min_price = line.product_id.min_price
+                def_retal = line.product_id.def_retal
                 tax_factor = 1
                 for tax in line.tax_id:
                     if tax.price_include:
                         tax_factor += tax.amount / 100
 
-                if min_price and (line.price_unit < line.product_id.standard_price * (1 + min_price / 100) * tax_factor):
+                if min_price and (line.price_unit < line.product_id.standard_price * (1 + min_price / 100) * tax_factor) and line.product_uom_qty > def_retal:
                     min_price_value = line.product_id.standard_price * (1 + min_price / 100) * tax_factor
                     
                     responsible_group = self.env.ref('sales_team.group_sale_manager')
