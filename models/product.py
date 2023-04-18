@@ -9,6 +9,11 @@ class ProductTemplate(models.Model):
         default=0.0
     )
 
+    def_retal = fields.Float(
+        string="Definicion Retal", 
+        help="Definición de Retal en la medida configurado del producto. Hasta esta cantidad se ignora el margen minimo.",
+        default=0.0)
+
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 

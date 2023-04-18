@@ -6,7 +6,7 @@
         var models = require('point_of_sale.models');
         var screens = require('point_of_sale.screens');
     
-        models.load_fields('product.product', ['min_price', 'standard_price']);
+        models.load_fields('product.product', ['min_price', 'standard_price', 'def_retal']);
         models.load_fields('pos.config', ['check_margin']);
     
         screens.PaymentScreenWidget.include({
@@ -23,8 +23,7 @@
                         if (line.get_product().min_price !== undefined && 
                             line.get_product().min_price !== false && 
                             line.get_product().min_price >0 && 
-                            line.quantity > 0 
-                            /* && line.order.pos.config.crm_team_id[0] == 8 */) {
+                            line.quantity > line.get_product().def_retal) {
                             var product = line.get_product();
                             var taxes = product.taxes_id;
                             var tax_total = 0;
