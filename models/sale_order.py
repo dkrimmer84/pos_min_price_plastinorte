@@ -1,4 +1,6 @@
 from odoo import models, fields, api, exceptions
+import logging
+_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -15,7 +17,11 @@ class SaleOrder(models.Model):
 
                 if min_price and (line.price_unit < line.product_id.standard_price * (1 + min_price / 100) * tax_factor):
                     min_price_value = line.product_id.standard_price * (1 + min_price / 100) * tax_factor
-                    if not self.env.user.has_group('sales_team.group_sale_salesman_all_leads'):
+                    
+                    responsible_group = self.env.ref('sales_team.group_sale_manager')
+                    user_in_responsible_group = responsible_group in self.env.user.groups_id
+
+                    if not user_in_responsible_group:
                         raise exceptions.UserError(
                             "El precio $%s para %s está por debajo del mínimo permitido. "
                             "El Precio mínimo es $%s. Por favor, corrija el precio antes de continuar." % (
@@ -24,4 +30,6 @@ class SaleOrder(models.Model):
                                 round(min_price_value, 2)
                             )
                         )
+                    else:
+                        _logger.info("Margin check bypassed for user: %s, product: %s", self.env.user.login, line.product_id.name)
         return super(SaleOrder, self).action_confirm()
